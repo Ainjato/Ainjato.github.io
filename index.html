@@ -1,24 +1,108 @@
-<!-- src/index.html -->
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>A l'aventure</title>
-    <base href="/" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="global_styles.css" />
-  </head>
-  <body>
-    <div class="door-container">
-      <div class="door">
-        <button class="handle"></button>
-      </div>
-      <button class="adventure">Si tu cliques plus de retour en arrière</button>
-      <div class="letter hidden">
-        <div>Je ferais un effort de design avec plus de temps.</div>
-        <div>Tu vas devoir garder le lien</div>
-      </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button as Door</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        #map-container {
+            display: none; /* Hide the map initially */
+            width: 600px;
+            height: 400px;
+            position: relative; /* Required for positioning the text */
+            border: 2px solid #000;
+            overflow: hidden; /* Ensure video fits within the container */
+        }
+
+        #map-container video {
+            position: absolute; /* Position the video absolutely within the container */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the container while maintaining aspect ratio */
+            z-index: 1; /* Ensure the video is behind the overlay */
+        }
+
+        #map-container .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: white;
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for readability */
+            padding: 10px 0;
+            box-sizing: border-box;
+            z-index: 2; /* Ensure the overlay is above the video */
+        }
+
+        #map-container .overlay h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        #map-container .overlay div {
+            margin-top: 5px;
+            font-size: 16px;
+        }
+
+        .map-trigger:checked ~ #map-container {
+            display: block; /* Show the map when the checkbox is checked */
+        }
+
+        .map-trigger {
+            display: none; /* Hide the checkbox */
+        }
+
+        #reveal-button {
+            width: 120px;
+            height: 240px;
+            background-color: #8B4513; /* Door color */
+            border: 5px solid #654321; /* Door frame color */
+            border-radius: 10px; /* Rounded corners */
+            position: relative;
+            cursor: pointer;
+            display: inline-block;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3); /* Add some shadow for a 3D effect */
+        }
+
+        #reveal-button::before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 90%;
+            width: 20px;
+            height: 20px;
+            background-color: #d2691e; /* Door knob color */
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .map-trigger:checked ~ #reveal-button {
+            display: none; /* Hide the button when checkbox is checked */
+        }
+    </style>
+</head>
+<body>
+    <input type="checkbox" id="map-trigger" class="map-trigger">
+    <label for="map-trigger" id="reveal-button"></label>
+    <div id="map-container">
+        <video autoplay muted loop>
+            <source src="chemin.mp4" type="video/mp4"> <!-- Local video file -->
+            Your browser does not support the video tag.
+        </video>
     </div>
-    <script src="main.ts"></script>
-  </body>
+</body>
 </html>
